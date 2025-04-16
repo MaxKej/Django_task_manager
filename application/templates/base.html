@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Task Manager{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'tasks/css/style.css' %}">
+
+</head>
+<body>
+
+    <!-- Główne menu -->
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Strona główna</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                <li><a href="{% url 'filter_tasks' %}">Znajdź zadanie</a></li>
+                <li><a href="{% url 'add_task' %}">Dodaj zadanie</a></li>
+                <li><a href="{% url 'task_history_filter' %}">Przeszukaj historię</a></li>
+                <li style="display: inline;">
+                    <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" style="background: none; font-family: Arial, sans-serif; border: none; color: #0077cc; cursor: pointer; text-decoration: underline; padding: 0;">
+                            Wyloguj się
+                        </button>
+                    </form>
+                </li>
+                <li><strong>Zalogowany jako: {{ user.username }}</strong></li>
+            {% else %}
+                <li><a href="{% url 'filter_tasks' %}">Znajdź zadanie</a></li>
+                <li><a href="{% url 'login' %}">Zaloguj</a></li>
+                <li><a href="{% url 'register' %}">Rejestracja</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <hr>
+
+    <!-- 📄 Zawartość podstron -->
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>

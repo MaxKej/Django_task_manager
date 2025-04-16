@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Historia zmian {% if task_id %}dla zadania #{{ task_id }}{% else %}– wszystkie zadania{% endif %}</h2>
+
+  <ul>
+    {% for entry in history %}
+      <li>
+        <strong>{{ entry.history_date|date:"Y-m-d H:i" }}</strong><br>
+        <strong>Akcja:</strong> {{ entry.get_history_type_display }}<br>
+        <strong>Wykonał:</strong>
+        {% if entry.history_user %}
+          {{ entry.history_user.username }}
+        {% else %}
+          (system / brak użytkownika)
+        {% endif %}<br>
+        <strong>Nazwa:</strong> {{ entry.nazwa }}<br>
+        <strong>Status:</strong> {{ entry.status }}<br>
+        <strong>Przypisany:</strong>
+        {% if entry.przypisany_uzytkownik %}
+          {{ entry.przypisany_uzytkownik.username }}
+        {% else %}
+          brak
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+
+    <p>
+  <a href="{% url 'task_detail' task.id %}">
+    <button>← Powrót do zadania</button>
+  </a>
+</p>
+
+{% endblock %}

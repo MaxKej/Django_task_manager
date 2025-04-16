@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Historia zmian – filtruj</h2>
+
+  <form method="get">
+    <input type="text" name="id" placeholder="ID zadania" value="{{ request.GET.id }}">
+    <input type="text" name="nazwa" placeholder="Nazwa" value="{{ request.GET.nazwa }}">
+    <select name="status">
+      <option value="">Status</option>
+      <option value="Nowy" {% if request.GET.status == "Nowy" %}selected{% endif %}>Nowy</option>
+      <option value="W toku" {% if request.GET.status == "W toku" %}selected{% endif %}>W toku</option>
+      <option value="Rozwiązany" {% if request.GET.status == "Rozwiązany" %}selected{% endif %}>Rozwiązany</option>
+    </select>
+    <input type="text" name="user" placeholder="Przypisany użytkownik" value="{{ request.GET.user }}">
+    <input type="text" name="changed_by" placeholder="Zmienione przez" value="{{ request.GET.changed_by }}">
+    <button type="submit">Filtruj</button>
+  </form>
+
+  <h3>Wyniki</h3>
+  <ul>
+    {% for entry in history %}
+      <li>
+        <strong>{{ entry.history_date|date:"Y-m-d H:i" }}</strong> |
+        <strong>ID:</strong> {{ entry.id }} |
+        <strong>Status:</strong> {{ entry.status }} |
+        <strong>Nazwa:</strong> {{ entry.nazwa }}<br>
+        <strong>Przypisany:</strong>
+        {% if entry.przypisany_uzytkownik %}
+          {{ entry.przypisany_uzytkownik.username }}
+        {% else %}
+          brak
+        {% endif %}<br>
+        <strong>Zmiana wykonana przez:</strong>
+        {% if entry.history_user %}
+          {{ entry.history_user.username }}
+        {% else %}
+          brak
+        {% endif %}
+      </li>
+    {% empty %}
+      <li>Brak wyników.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

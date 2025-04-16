@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Filtruj zadania</h2>
+  <form method="get">
+    <input type="text" name="id" placeholder="ID zadania" value="{{ request.GET.id }}">
+    <input type="text" name="nazwa" placeholder="Nazwa zadania" value="{{ request.GET.nazwa }}">
+    <input type="text" name="opis" placeholder="Opis zadania" value="{{ request.GET.opis }}">
+
+    <select name="status">
+      <option value="">Wszystkie statusy</option>
+      <option value="Nowy" {% if request.GET.status == "Nowy" %}selected{% endif %}>Nowy</option>
+      <option value="W toku" {% if request.GET.status == "W toku" %}selected{% endif %}>W toku</option>
+      <option value="Rozwiązany" {% if request.GET.status == "Rozwiązany" %}selected{% endif %}>Rozwiązany</option>
+    </select>
+
+    <input type="text" name="user" placeholder="Nazwa użytkownika" value="{{ request.GET.user }}">
+
+<select name="sort_by">
+  <option value="">Sortuj według...</option>
+  <option value="created_at_desc" {% if request.GET.sort_by == "created_at_desc" %}selected{% endif %}>
+    Utworzenia (najnowsze)
+  </option>
+  <option value="created_at_asc" {% if request.GET.sort_by == "created_at_asc" %}selected{% endif %}>
+    Utworzenia (najstarsze)
+  </option>
+  <option value="updated_at_desc" {% if request.GET.sort_by == "updated_at_desc" %}selected{% endif %}>
+    Modyfikacji (najnowsze)
+  </option>
+  <option value="updated_at_asc" {% if request.GET.sort_by == "updated_at_asc" %}selected{% endif %}>
+    Modyfikacji (najstarsze)
+  </option>
+</select>
+  <button type="submit">Filtruj</button>
+  </form>
+
+  <h3>Wyniki</h3>
+    <ul class="task-list">
+      {% for task in tasks %}
+        <li>
+          <a href="{% url 'task_detail' task.id %}">
+            <strong>{{ task.nazwa }}</strong>
+          </a>
+          {% if task.status == "Nowy" %}
+              <div class="status status-nowy">{{ task.status }}</div>
+            {% elif task.status == "W toku" %}
+              <div class="status status-w-toku">{{ task.status }}</div>
+            {% elif task.status == "Rozwiązany" %}
+              <div class="status status-rozwiazany">{{ task.status }}</div>
+            {% else %}
+              <div class="status">{{ task.status }}</div>
+          {% endif %}
+
+          <div class="task-meta">
+            ID: {{ task.id }} |
+            Przypisany: {{ task.przypisany_uzytkownik.username|default:"–" }} |
+            Autor: {{ task.autor.username|default:"–" }} |
+            Utworzone: {{ task.created_at|date:"Y-m-d H:i" }}
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+
+{% endblock %}

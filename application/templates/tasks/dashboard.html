@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li style="color: green;">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h1>Cześć, {{ user.username }}!</h1>
+    <p>To jest strona dostępna tylko dla zalogowanych użytkowników.</p>
+
+    <h2>📝 Zadania, które utworzyłeś</h2>
+    {% if moje_zadania %}
+      <ul>
+        {% for task in moje_zadania %}
+          <li>
+            <a href="{% url 'task_detail' task.id %}"><strong>{{ task.nazwa }}</strong></a> – {{ task.status }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Nie utworzyłeś jeszcze żadnych zadań.</p>
+    {% endif %}
+
+    <hr>
+
+    <h2>📌 Zadania przypisane do Ciebie</h2>
+    {% if przypisane_do_mnie %}
+      <ul>
+        {% for task in przypisane_do_mnie %}
+          <li>
+            <a href="{% url 'task_detail' task.id %}"><strong>{{ task.nazwa }}</strong></a> – {{ task.status }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Nie masz przypisanych zadań.</p>
+    {% endif %}
+
+{% endblock %}
+

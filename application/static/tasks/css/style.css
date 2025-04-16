@@ -1,0 +1,98 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 30px;
+    background-color: #f9f9f9;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 15px;
+}
+
+a {
+    text-decoration: none;
+    color: #0077cc;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+/* Stylizacja formularza */
+form {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+}
+
+form input,
+form select,
+form button {
+  margin: 0.5rem 0.5rem 0.5rem 0;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}
+
+/* Lista zadań */
+ul.task-list {
+  list-style: none;
+  padding: 0;
+}
+
+ul.task-list li {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Stylizacja nazw zadań */
+ul.task-list li strong {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.status {
+  font-weight: bold;
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+
+.status-nowy {
+  background-color: #d0e7ff;
+  color: #004085;
+}
+
+.status-w-toku {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-rozwiazany {
+  background-color: #d4edda;
+  color: #155724;
+}

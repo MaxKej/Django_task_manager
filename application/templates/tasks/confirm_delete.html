@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Czy na pewno chcesz usunąć to zadanie?</h2>
+
+  <p><strong>ID:</strong> {{ task.id }}</p>
+  <p><strong>Nazwa:</strong> {{ task.nazwa }}</p>
+  <p><strong>Status:</strong> {{ task.status }}</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" style="background-color: red; color: white;">Tak, usuń</button>
+    <a href="{% url 'task_detail' task.id %}"><button type="button">Anuluj</button></a>
+  </form>
+{% endblock %}

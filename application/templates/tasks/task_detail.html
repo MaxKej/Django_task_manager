@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Szczegóły zadania</h2>
+
+  <p><strong>ID:</strong> {{ task.id }}</p>
+  <p><strong>Nazwa:</strong> {{ task.nazwa }}</p>
+  <p><strong>Status:</strong> {{ task.status }}</p>
+  <p><strong>Opis:</strong> {{ task.opis|default:"–" }}</p>
+  <p><strong>Przypisany użytkownik:</strong>
+    {% if task.przypisany_uzytkownik %}
+      {{ task.przypisany_uzytkownik.username }}
+    {% else %}
+      brak zadań
+    {% endif %}
+  </p>
+
+{% if user.is_authenticated %}
+  <p>
+    <a href="{% url 'edit_task' task.id %}">
+      <button>Edytuj</button>
+    </a>
+  </p>
+
+  {% if user.is_staff or task.autor == user %}
+    <p>
+      <a href="{% url 'delete_task' task.id %}">
+        <button style="background-color: red; color: white;">🗑️ Usuń zadanie</button>
+      </a>
+    </p>
+  {% endif %}
+
+  <p>
+    <a href="{% url 'task_history' task.id %}">🕘 Zobacz historię zmian</a>
+  </p>
+
+  <p>🕓 Zobacz stan zadania na określoną datę</p>
+  <form method="get" action="{% url 'task_at_time' task.id %}">
+    <input type="datetime-local" name="timestamp" placeholder="Wybierz datę i godzinę" required>
+    <button type="submit">Pokaż</button>
+  </form>
+{% endif %}
+
+
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Stan zadania #{{ task.id }} na {{ timestamp|date:"Y-m-d H:i" }}</h2>
+
+  {% if history %}
+    <p><strong>Nazwa:</strong> {{ history.nazwa }}</p>
+    <p><strong>Status:</strong> {{ history.status }}</p>
+    <p><strong>Przypisany użytkownik:</strong>
+      {% if history.przypisany_uzytkownik %}
+        {{ history.przypisany_uzytkownik.username }}
+      {% else %}
+        brak
+      {% endif %}
+    </p>
+    <p><strong>Zapisano o:</strong> {{ history.history_date|date:"Y-m-d H:i" }}</p>
+    <p><strong>Edytował:</strong>
+      {% if history.history_user %}
+        {{ history.history_user.username }}
+      {% else %}
+        nieznany
+      {% endif %}
+    </p>
+  {% else %}
+    <p>Brak wersji sprzed podanej daty.</p>
+  {% endif %}
+
+    <p>
+      <a href="{% url 'task_detail' task.id %}">
+        <button>← Powrót do zadania</button>
+      </a>
+    </p>
+
+{% endblock %}
