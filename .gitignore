@@ -172,3 +172,30 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Docker volumes and configs
+db/
+docker-compose.override.yml
+
+# Environment files
+.env
+.env.*
+
+# VS Code
+.vscode/
+
+# Local dev databases
+*.sqlite3
+*.sqlite3-journal
+
+# Logs
+*.log
+
+# Pycache just in case
+__pycache__/
+*.py[cod]
+
+# Local virtualenvs (redundant if already listed)
+venv/
+.venv/
+
