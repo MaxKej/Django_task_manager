@@ -89,7 +89,7 @@ import dj_database_url
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://postgres:blogpassword@db:5432/blog_development',
+        default='postgres://postgres:taskpassword@db:5432/task_development',
         conn_max_age=600,
     )
 }

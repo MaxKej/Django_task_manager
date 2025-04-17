@@ -1,8 +1,4 @@
-FROM ubuntu:24.04
-
-# Zainstaluj wymagane pakiety systemowe
-RUN apt-get -y update && apt-get -y upgrade && \
-    apt-get -y install build-essential curl sudo python3 python3-pip python3-venv libpq-dev
+FROM python:latest
 
 # Dodaj użytkownika
 RUN useradd -m -s /bin/bash hosting && \
@@ -12,7 +8,7 @@ USER hosting
 WORKDIR /home/hosting
 
 # Utwórz i aktywuj środowisko wirtualne
-RUN python3 -m venv venv
+RUN python -m venv venv
 ENV PATH="/home/hosting/venv/bin:$PATH"
 
 # Zainstaluj wymagane pakiety Python/Django
@@ -30,7 +26,7 @@ RUN pip install --upgrade pip && \
         pytest \
         pytest-django
 
-# Ustaw domyślny working dir
+# Ustaw katalog projektu jako working directory
 WORKDIR /home/hosting/app
 
 CMD ["bash"]

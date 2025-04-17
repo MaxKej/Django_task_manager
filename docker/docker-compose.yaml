@@ -2,9 +2,10 @@ services:
   db:
     image: postgres:latest
     environment:
-      POSTGRES_DB: blog_development
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: blogpassword #zmienic na task
+        POSTGRES_DB: task_development
+        POSTGRES_PASSWORD: taskpassword
+        DATABASE_URL: postgres://postgres:taskpassword@db:5432/task_development
+
     volumes:
       - ../db:/var/lib/postgresql/data
     ports:
@@ -19,7 +20,7 @@ services:
     volumes:
       - ../application:/home/hosting/app
     environment:
-      DATABASE_URL: postgres://postgres:blogpassword@db:5432/blog_development
+      DATABASE_URL: postgres://postgres:taskpassword@db:5432/task_development
       DJANGO_SETTINGS_MODULE: application.settings
     depends_on:
       - db
